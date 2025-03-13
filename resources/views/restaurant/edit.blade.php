@@ -122,26 +122,27 @@
         <!-- Botón para cerrar -->
         <button class="close-btn" onclick="closeForm()">×</button>
         
-        <h2>Añadir un nuevo restaurante</h2>
-        <form action="{{ route('restaurants.store') }}" method="POST">
+        <h2>Edita</h2>
+        <form action="{{route('restaurants.update', ['restaurant' => $restaurant-> id_restaurant]) }}" method="POST">
             @csrf
+            @method('put')
             <div class="form-group">
                 <label for="name">Nombre del Restaurante</label>
-                <input type="text" id="name" name="name" placeholder="Nombre del restaurante" required>
+                <input type="text" id="name" name="name" value="{{$restaurant->name}}">
             </div>
 
             <div class="form-group">
                 <label for="link">Link</label>
-                <input type="text" id="link" name="link" placeholder="link" required>
+                <input type="text" id="link" name="link" value="{{$restaurant->link}}">
             </div>
 
             <div class="form-group">
                 <label for="open_days">Días Abiertos</label>
-                <input type="text" id="open_days" name="open_days" placeholder="Días abiertos (Lunes, Martes, etc.)" required>
+                <input type="text" id="open_days" name="open_days" value="{{$restaurant->open_days}}">
             </div>
 
             <div class="form-footer">
-                <button type="submit">Añadir Restaurante</button>
+                <button type="submit">Actualizar</button>
             </div>
         </form>
     </div>

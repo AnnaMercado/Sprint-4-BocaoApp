@@ -26,6 +26,23 @@ class RestaurantController extends Controller
 
     }
 
+    public function edit(Restaurant $restaurant){
+        return view('restaurant.edit', ['restaurant' => $restaurant]);
+
+    }
+
+    public function update(Restaurant $restaurant, Request $request){
+        $data = $request->validate([
+            "name" => 'required|string|max:255',
+            "link" => 'nullable',
+            "open_days" => 'required|string',
+        ]);
+        $restaurant->update($data);
+        return redirect(route('restaurants.index'))-> with('success', 'Restaurante modificado correctamente. ');
+
+
+    }
+
 
 
 

@@ -9,17 +9,28 @@
 <body>
     <h2>Restaurantes</h2>
     <div>
+        @if (session()->has('success'))
+            <div>
+               {{session('success')}}
+            </div>
+            
+        @endif
         <table border="1">
             <tr>
                 <th>Nombre</th>
                 <th>Link</th>
-                <th>Open days</th>
+                <th>Días abierto</th>
+                <th>Editar</th>
             </tr>
             @foreach ($restaurants as $restaurant)
                 <tr>
                     <td>{{$restaurant->name}} </td>
                     <td>{{$restaurant->link}} </td>
                     <td>{{$restaurant->open_days}} </td>
+                    <td>
+                        <a href="{{route('restaurants.edit', ['restaurant'=>$restaurant-> id_restaurant] )}}">Edit</a>
+                    </td>
+
                 </tr>
                 
             @endforeach
