@@ -15,12 +15,16 @@
             </div>
             
         @endif
+        <div>
+            <a href="{{route('restaurants.create')}}">Nuevo restaurante</a>
+        </div>
         <table border="1">
             <tr>
                 <th>Nombre</th>
                 <th>Link</th>
                 <th>Días abierto</th>
                 <th>Editar</th>
+                <th>Eliminar</th>
             </tr>
             @foreach ($restaurants as $restaurant)
                 <tr>
@@ -29,6 +33,13 @@
                     <td>{{$restaurant->open_days}} </td>
                     <td>
                         <a href="{{route('restaurants.edit', ['restaurant'=>$restaurant-> id_restaurant] )}}">Edit</a>
+                    </td>
+                    <td>
+                        <form method="post" action="{{route('restaurants.delete', ['restaurant'=>$restaurant-> id_restaurant] )}}">
+                            @csrf
+                            @method('delete')
+                            <input type="submit" value="Delete">
+                        </form>
                     </td>
 
                 </tr>
