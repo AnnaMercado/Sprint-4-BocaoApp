@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id('id_restaurant');
             $table->string('name');
-            $table->string('link_google_maps');
+            $table->string('link');
             $table->string('open_days');
             $table->timestamps();
         });
