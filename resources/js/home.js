@@ -10,13 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             icon: 'fas fa-search',
             title: 'Encuentra lo que buscas',
-            text: '¿Te apetece japo? ¿Algo abierto en domingo? Usa nuestro buscador y las etiquetas para encontrarlo en segundos. ¡Nunca más perderás tiempo buscando!',
+            text: '¿Te apetece japo? ¿Algo abierto en domingo? Usa nuestro buscador para encontrarlo en segundos. ¡Nunca más perderás tiempo buscando!',
             bg: 'bg-pink-300'
         },
         {
             icon: 'fas fa-star',
-            title: 'Tu lista de pendientes',
-            text: '¿Hay restaurantes que siempre has querido visitar? Agrega todos esos lugares a tu lista de pendientes y cuando llegue el momento, ya sabrás a dónde ir.',
+            title: 'Guarda para más tarde',
+            text: '¿Hay restaurantes que siempre has querido visitar? Agregalos a tu lista de pendientes y cuando llegue el momento, ya sabrás a dónde ir.',
             bg: 'bg-yellow-300'
         }
     ];
