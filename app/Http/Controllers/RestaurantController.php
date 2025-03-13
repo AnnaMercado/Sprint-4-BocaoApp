@@ -43,6 +43,11 @@ class RestaurantController extends Controller
 
     }
 
+    public function delete(Restaurant $restaurant){
+        $restaurant->delete();
+        return redirect(route('restaurants.index'))-> with('success', 'Restaurante eliminado correctamente. ');
+    }
+
 
 
 

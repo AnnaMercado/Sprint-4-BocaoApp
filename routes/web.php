@@ -12,5 +12,7 @@ Route::get('/restaurantes/create', [RestaurantController::class, 'create']) ->na
 Route::post('/restaurantes', [RestaurantController::class, 'store']) ->name('restaurants.store');
 Route::get('/restaurantes/{restaurant}/edit', [RestaurantController::class, 'edit']) ->name('restaurants.edit');
 Route::put('/restaurantes/{restaurant}/update', [RestaurantController::class, 'update']) ->name('restaurants.update');
+Route::delete('/restaurantes/{restaurant}/delete', [RestaurantController::class, 'delete']) ->name('restaurants.delete');
+
 
 
