@@ -21,7 +21,7 @@
         <table border="1">
             <tr>
                 <th>Nombre</th>
-                <th>Link</th>
+                <th>Direccion</th>
                 <th>Días abierto</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
@@ -29,13 +29,13 @@
             @foreach ($restaurants as $restaurant)
                 <tr>
                     <td>{{$restaurant->name}} </td>
-                    <td>{{$restaurant->link}} </td>
+                    <td>{{$restaurant->adress}} </td>
                     <td>{{$restaurant->open_days}} </td>
                     <td>
-                        <a href="{{route('restaurants.edit', ['restaurant'=>$restaurant-> id_restaurant] )}}">Edit</a>
+                        <a href="{{route('restaurants.edit', ['restaurant'=>$restaurant-> id] )}}">Edit</a>
                     </td>
                     <td>
-                        <form method="post" action="{{route('restaurants.delete', ['restaurant'=>$restaurant-> id_restaurant] )}}">
+                        <form method="post" action="{{route('restaurants.delete', ['restaurant'=>$restaurant-> id] )}}">
                             @csrf
                             @method('delete')
                             <input type="submit" value="Delete">

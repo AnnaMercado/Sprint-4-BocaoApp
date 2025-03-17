@@ -131,8 +131,8 @@
             </div>
 
             <div class="form-group">
-                <label for="link">Link</label>
-                <input type="text" id="link" name="link" placeholder="link" required>
+                <label for="link">Direccion</label>
+                <input type="text" id="adress" name="adress" placeholder="Direccion" required>
             </div>
 
             <div class="form-group">

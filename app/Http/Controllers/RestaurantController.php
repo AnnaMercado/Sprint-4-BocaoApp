@@ -17,7 +17,7 @@ class RestaurantController extends Controller
     public function store(Request $request){
         $data = $request->validate([
             "name" => 'required|string|max:255',
-            "link" => 'nullable',
+            "adress" => 'required|string',
             "open_days" => 'required|string',
         ]);
 
@@ -34,7 +34,7 @@ class RestaurantController extends Controller
     public function update(Restaurant $restaurant, Request $request){
         $data = $request->validate([
             "name" => 'required|string|max:255',
-            "link" => 'nullable',
+            "adress" => 'required|string',
             "open_days" => 'required|string',
         ]);
         $restaurant->update($data);

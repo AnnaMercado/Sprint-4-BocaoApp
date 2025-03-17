@@ -123,7 +123,7 @@
         <button class="close-btn" onclick="closeForm()">×</button>
         
         <h2>Edita</h2>
-        <form action="{{route('restaurants.update', ['restaurant' => $restaurant-> id_restaurant]) }}" method="POST">
+        <form action="{{route('restaurants.update', ['restaurant' => $restaurant-> id]) }}" method="POST">
             @csrf
             @method('put')
             <div class="form-group">
@@ -132,8 +132,8 @@
             </div>
 
             <div class="form-group">
-                <label for="link">Link</label>
-                <input type="text" id="link" name="link" value="{{$restaurant->link}}">
+                <label for="link">Direccion</label>
+                <input type="text" id="adress" name="adress" value="{{$restaurant->adress}}">
             </div>
 
             <div class="form-group">
