@@ -3,21 +3,40 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\Hash; 
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Sembrar la base de datos.
+     *
+     * @return void
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
+        // Crear el primer usuario
         User::factory()->create([
-            'name' => 'Test User',
+            'name' => 'Anna',
             'email' => 'test@example.com',
+            'password' => Hash::make('annamercado'),
         ]);
+
+        // Crear el segundo usuario
+        User::factory()->create([
+            'name' => 'Jordi',
+            'email' => 'jordi@example.com',
+            'password' => Hash::make('jordimontell'),
+        ]);
+
+        // Crear el tercer usuario
+        User::factory()->create([
+            'name' => 'Maria',
+            'email' => 'maria@example.com',
+            'password' => Hash::make('mariapozo'),
+        ]);
+        $this->call(TagSeeder::class);
+        $this->call(RestaurantSeeder::class);
     }
 }
