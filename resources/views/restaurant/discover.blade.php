@@ -1,6 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-lg text-[var(--coral)] leading-tight mt-6 mb-2 text-center">
+            <!-- Puedes agregar texto aquí si es necesario -->
         </h2>
     </x-slot>
 
@@ -8,27 +9,31 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <h2 class="text-4xl font-semibold text-[var(--teal)] mb-1 text-center mt-10 ">
-                    {{ __('Buscador de Restaurantes') }}
+                    {{ __('Descubre Restaurantes') }}
                 </h2>
                 <h1 class="text-center text-m font-normal text-gray-700">
-                    ¿Ya sabes lo que quieres? 
-                    <span class="text-[var(--coral)]">¡Encuéntralo rápidamente!</span>
+                    ¿Con ganas de probar algo nuevo? 
+                    <span class="text-[var(--coral)]">¡Descubre dónde han ido otros usuarios!</span>
                 </h1>
                 <div class="p-6 text-gray-900">
 
-                    <form action="{{ route('restaurants.search') }}" method="GET">
+                    <!-- Filtros de búsqueda -->
+                    <form action="{{ route('restaurants.discover') }}" method="GET">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
+                            <!-- Nombre del Restaurante -->
                             <div class="mb-4">
                                 <label for="name" class="block text-sm font-medium" style="color: var(--teal-dark);">Nombre del Restaurante</label>
                                 <input type="text" id="name" name="name" value="{{ request('name') }}" class="mt-1 block w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
                             </div>
 
+                            <!-- Puntuación -->
                             <div class="mb-4">
                                 <label for="qualification" class="block text-sm font-medium" style="color: var(--teal-dark);">Puntuación</label>
                                 <input type="number" id="qualification" name="qualification" value="{{ request('qualification') }}" class="mt-1 block w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400" min="0" max="10">
                             </div>
 
+                            <!-- Días Abiertos -->
                             <div class="mb-4">
                                 <label for="open_days" class="block text-sm font-medium" style="color: var(--teal-dark);">Días Abiertos</label>
                                 <select id="open_days" name="open_days" class="mt-1 block w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
@@ -50,6 +55,7 @@
                                     <option value="€€€" {{ request('price_range') == '€€€' ? 'selected' : '' }}>€€€</option>
                                 </select>
                             </div>
+                            <!-- Tags (Etiquetas) -->
                             <div class="mb-4">
                                 <label for="tags" class="block text-sm font-medium" style="color: var(--teal-dark);">Etiquetas</label>
                                 <select id="tags" name="tags[]" class="mt-1 block w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400" multiple>
@@ -67,6 +73,7 @@
 
                         </div>
 
+                        <!-- Botón de Buscar -->
                         <div class="mt-4 text-center">
                             <button type="submit" class="bg-teal-500 text-white py-2 px-6 rounded-lg hover:bg-teal-600 transition duration-200">
                                 Buscar Restaurantes
@@ -74,13 +81,14 @@
                         </div>
                     </form>
 
+                    <!-- Resultados de búsqueda -->
                     @if(isset($restaurants) && $restaurants->count())
                         <div class="mt-6">
                             <h3 class="text-2xl font-semibold text-[var(--coral)]">Resultados:</h3>                            <ul class="mt-4">
                                 @foreach ($restaurants as $restaurant)
                                     <li class="mb-4">
                                         <div class="bg-white p-4 rounded-lg shadow-md border border-light-gray">
-                                            <h4 class="text-xl font-semibold text-teal-600">{{ $restaurant->name }}</h4>
+                                            <h4 class="text-xl font-semibold text-teal-600">{{ $restaurant->name }}</h4>                                            <p class="text-sm text-gray-700">Añadido por: {{ $restaurant->user->name }}</p>
                                             <p class="text-sm text-gray-700">Dirección: {{ $restaurant->adress }}</p>
                                             <p class="text-sm text-gray-700">Puntuación: {{ $restaurant->qualification }}</p>
                                             <p class="text-sm text-gray-700">Días Abiertos: {{ $restaurant->open_days }}</p>

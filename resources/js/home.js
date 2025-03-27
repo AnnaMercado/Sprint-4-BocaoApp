@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Dynamically generate feature cards with animations
     const cardsData = [
         {
             icon: 'fas fa-clipboard-list',

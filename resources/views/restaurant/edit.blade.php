@@ -1,159 +1,95 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Añadir Restaurante</title>
+<x-app-layout>
+    <div class="flex justify-center items-center min-h-screen bg-teal-50 mt-5">
+        <div class="bg-white rounded-lg shadow-md p-6 w-full max-w-3xl border border-light-gray hover:shadow-xl transition duration-300">
+            <!-- Título con color coral y hover más notorio -->
+            <h2 class="text-3xl font-semibold text-[var(--coral)] mb-6 text-center hover:text-[var(--coral-hover)] cursor-pointer transition duration-300 ease-in-out">
+                Editar Restaurante
+            </h2>
 
-    <style>
-        /* Colores principales */
-        :root {
-            --teal: #008080;
-            --coral: #FF6F61;
-            --yellow: #FFEB3B;
-        }
+            <!-- Success Message -->
+            @if (session()->has('success'))
+                <div class="bg-yellow-100 text-yellow-800 p-3 mb-6 rounded-md shadow-md">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-        /* Estilo general de la página */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: var(--teal);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: white;
-        }
+            <!-- Formulario para Editar Restaurante -->
+            <form action="{{ route('restaurants.update', ['restaurant' => $restaurant->id]) }}" method="POST">
+                @csrf
+                @method('put')
 
-        /* Estilo de la card */
-        .card {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            position: relative;
-        }
+                <!-- Usamos grid para estructura de dos columnas -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-        /* Botón para cerrar */
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: transparent;
-            border: none;
-            color: var(--teal);
-            font-size: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+                    <!-- Nombre del Restaurante -->
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium" style="color: var(--teal-dark);">Nombre del Restaurante</label>
+                        <input type="text" id="name" name="name" value="{{ old('name', $restaurant->name) }}" class="mt-1 block w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
+                    </div>
 
-        .close-btn:hover {
-            color: var(--coral);
-        }
+                    <!-- Dirección -->
+                    <div class="mb-4">
+                        <label for="adress" class="block text-sm font-medium" style="color: var(--teal-dark);">Dirección</label>
+                        <input type="text" id="adress" name="adress" value="{{ old('adress', $restaurant->adress) }}" class="mt-1 block w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
+                    </div>
 
-        h2 {
-            color: var(--teal);
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
+                    <!-- Puntuación -->
+                    <div class="mb-4">
+                        <label for="qualification" class="block text-sm font-medium" style="color: var(--teal-dark);">Puntuación</label>
+                        <input type="number" id="qualification" name="qualification" value="{{ old('qualification', $restaurant->qualification) }}" class="mt-1 block w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400" min="0" max="10" required>
+                    </div>
 
-        .form-group {
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
+                    <!-- Rango de Precio (Desplegable) -->
+                    <div class="mb-4">
+                        <label for="price_range" class="block text-sm font-medium" style="color: var(--teal-dark);">Rango de Precio</label>
+                        <select id="price_range" name="price_range" class="mt-1 block w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
+                            <option value="€" {{ $restaurant->price_range == '€' ? 'selected' : '' }}>€</option>
+                            <option value="€€" {{ $restaurant->price_range == '€€' ? 'selected' : '' }}>€€</option>
+                            <option value="€€€" {{ $restaurant->price_range == '€€€' ? 'selected' : '' }}>€€€</option>
+                        </select>
+                    </div>
 
-        label {
-            font-size: 16px;
-            color: var(--teal);
-            margin-bottom: 8px;
-            text-align: left;
-            width: 100%;
-        }
+                    <!-- Días Abiertos -->
+                    <div class="mb-4">
+                        <label for="open_days" class="block text-sm font-medium" style="color: var(--teal-dark);">Días Abiertos</label>
+                        <select id="open_days" name="open_days" class="mt-1 block w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
+                            <option value="laborables" {{ $restaurant->open_days == 'laborables' ? 'selected' : '' }}>Laborables</option>
+                            <option value="martes_a_sabado" {{ $restaurant->open_days == 'martes_a_sabado' ? 'selected' : '' }}>De Martes a Sábado</option>
+                            <option value="lunes_a_domingo" {{ $restaurant->open_days == 'lunes_a_domingo' ? 'selected' : '' }}>De Lunes a Domingo</option>
+                            <option value="solo_noches" {{ $restaurant->open_days == 'solo_noches' ? 'selected' : '' }}>Solo Noches</option>
+                            <option value="solo_mediodias" {{ $restaurant->open_days == 'solo_mediodias' ? 'selected' : '' }}>Solo Mediodías</option>
+                            <option value="variable" {{ $restaurant->open_days == 'variable' ? 'selected' : '' }}>Variable</option>
+                        </select>
+                    </div>
 
-        input {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 100%;
-            margin-bottom: 12px;
-            box-sizing: border-box;
-        }
+                    <!-- Tags (Etiquetas) -->
+                    <div class="mb-4">
+                        <label for="tags" class="block text-sm font-medium" style="color: var(--teal-dark);">Etiquetas</label>
+                        <select id="tags" name="tags[]" class="mt-1 block w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400" multiple required>
+                            <option value="" disabled>Selecciona las etiquetas</option>
+                            @foreach ($tags as $tag)
+                                <option value="{{ $tag->id }}" 
+                                    @if(in_array($tag->id, $restaurant->tags->pluck('id')->toArray())) 
+                                        selected 
+                                    @endif>
+                                    {{ $tag->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-        input:focus {
-            border-color: var(--teal);
-            outline: none;
-        }
+                </div>
 
-        button {
-            background-color: var(--coral);
-            color: white;
-            padding: 12px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: var(--yellow);
-            color: var(--teal);
-        }
-
-        /* Estilos para el formulario */
-        .form-footer {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="card">
-        <!-- Botón para cerrar -->
-        <button class="close-btn" onclick="closeForm()">×</button>
-        
-        <h2>Edita</h2>
-        <form action="{{route('restaurants.update', ['restaurant' => $restaurant-> id]) }}" method="POST">
-            @csrf
-            @method('put')
-            <div class="form-group">
-                <label for="name">Nombre del Restaurante</label>
-                <input type="text" id="name" name="name" value="{{$restaurant->name}}">
-            </div>
-
-            <div class="form-group">
-                <label for="link">Direccion</label>
-                <input type="text" id="adress" name="adress" value="{{$restaurant->adress}}">
-            </div>
-
-            <div class="form-group">
-                <label for="open_days">Días Abiertos</label>
-                <input type="text" id="open_days" name="open_days" value="{{$restaurant->open_days}}">
-            </div>
-
-            <div class="form-footer">
-                <button type="submit">Actualizar</button>
-            </div>
-        </form>
+                <!-- Botón de Enviar con colores personalizados y hover -->
+                <div class="mt-6 text-center">
+                    <button type="submit" class="text-white py-2 px-6 rounded-lg transition duration-200 ease-in-out"
+                            style="background-color: var(--teal);"
+                            onmouseover="this.style.backgroundColor='var(--teal-dark)'" 
+                            onmouseout="this.style.backgroundColor='var(--teal)'">
+                        Actualizar Restaurante
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <script>
-        // Función para cerrar el formulario
-        function closeForm() {
-            const card = document.querySelector('.card');
-            card.style.display = 'none'; // Oculta la card
-        }
-    </script>
-
-</body>
-</html>
+</x-app-layout>
